@@ -180,7 +180,7 @@
 
 ![Untitled9](/uploads/7d058a74485dda2444469b9613d985e2/서비스구성도.png)
 
-- Spring Boot ver. 2.3.5
+- Spring Boot ver. 2.7.15
 - WAS TomCat 8.0
 - JAVA 1.8.0 , javac 1.8.0
 - Mysql 8.0.33 
@@ -188,7 +188,7 @@
 - Lombok
 - Thymeleaf
 - Ajax
-- MyBatis
+- MyBatis-spring-boot-starter:2.2.0
 
 ## **5. 프로젝트 팀원 역할 분담**
 
