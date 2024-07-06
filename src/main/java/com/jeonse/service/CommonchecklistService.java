@@ -3,7 +3,7 @@ package com.jeonse.service;
 import com.jeonse.dto.CommonchecklistDTO;
 import com.jeonse.dto.MemberDTO;
 import org.springframework.stereotype.Service;
-//ff
+//아니 이런것도 되나?
 @Service
 public interface CommonchecklistService {
     // 값 입력
