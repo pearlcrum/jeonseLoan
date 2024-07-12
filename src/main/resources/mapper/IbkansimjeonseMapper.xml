@@ -4,18 +4,19 @@
     <!-- 값 넣기 -->
     <insert id="insertIbkansimjeonse" parameterType="com.jeonse.dto.IbkansimjeonseDTO">
         insert into ibkansimjeonse values(
-        #{memID},
+        #{wishlistNum},
         #{insurance},
         #{nearAgent},
         #{shouldPayInTwoWeeks},
         #{propertyRestrict},
-        #{checklistID}
         )
     </insert>
-    <select id="getIbkansimjeonseDTO" parameterType="String" resultType="com.jeonse.dto.IbkansimjeonseDTO">
-        select * from ibkansimjeonse where memID = #{memID}
+    <!--새롭게 추가-->
+    <select id="getIbkansimjeonseDTO" parameterType="int" resultType="com.jeonse.dto.IbkansimjeonseDTO">
+        select * from ibkansimjeonse where wishlistNum = #{wishlistNum}
     </select>
-    <delete id="deleteIbkAnsimjeonse" parameterType="String">
-        delete from ibkansimjeonse where memID=#{memID}
+    <!--삭제-->
+    <delete id="deleteIbkAnsimjeonse" parameterType="int">
+        delete from ibkansimjeonse where wishlistNum=#{wishlistNum}
     </delete>
 </mapper>

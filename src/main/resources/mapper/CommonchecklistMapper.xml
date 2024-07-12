@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jeonse.repository.CommonchecklistMapper">
     <!-- 값 넣기 -->
+    <!-- wishlistNum auto increment이기에 따로 insert x -->
     <insert id="insertCommonchecklist" parameterType="com.jeonse.dto.CommonchecklistDTO">
         insert into commonchecklist values(
                                               #{memID},
@@ -13,23 +14,28 @@
                                               #{jeonseDeposit},
                                               #{jeonseTerm},
                                               #{landlordPossessionMonth},
-                                              #{seniorDebt}, #{houseID}
+                                              #{seniorDebt},
+                                              #{houseID}
                                           )
     </insert>
     <!-- 값 지우기 -->
-    <delete id="deleteCommonchecklist" parameterType="String">
-        delete from commonchecklist where memID=#{memID}
+    <delete id="deleteCommonchecklist" parameterType="int">
+        delete from commonchecklist where wishlistNum=#{wishlistNum}
     </delete>
-    <!-- 기존에 있는지 체크-->
+    <!-- 기존에 몇 개 있는지 체크-->
     <select id="checkCommonchecklistID" parameterType="String" resultType="int">
         select count(*) from commonchecklist where memID = #{memID}
     </select>
-
-    <select id="getCommonChecklist" parameterType="String" resultType="com.jeonse.dto.CommonchecklistDTO">
+    <!-- 특정 commonchecklist 반환 -->
+    <select id="getCommonChecklist" parameterType="int" resultType="com.jeonse.dto.CommonchecklistDTO">
+        select * from commonchecklist where wishlistNum = #{wishlistNum}
+    </select>
+    <!-- 가지고 있는 모든 commonchecklist 반환 -->
+    <select id="getAllCommonChecklist" parameterType="String" resultType="list">
         select * from commonchecklist where memID = #{memID}
     </select>
-
-    <select id="getHouseIDFromCommonchecklist" parameterType="String" resultType="int">
-        select houseID from commonchecklist where memID = #{memID}
+    <!-- 집 아이디 반환 -->
+    <select id="getHouseIDFromCommonchecklist" parameterType="int" resultType="int">
+        select houseID from commonchecklist where wishlistNum = #{wishlistNum}
     </select>
 </mapper>

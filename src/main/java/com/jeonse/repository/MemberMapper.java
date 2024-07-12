@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
 
-
+//24.07.07 재성 수정 완료
 @Mapper
 public interface MemberMapper {
 

@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CommonchecklistServiceImpl implements CommonchecklistService{
 
@@ -39,31 +42,32 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
         }else if(list.getLandlordPossessionMonth()<1){
             return 0;
         }else {*/
-            //공통 체크리스트에 문제 없을 경우
-            CommonchecklistDTO commonchecklistDto = new CommonchecklistDTO();
-            commonchecklistDto.setMemID(list.getMemID());
-            commonchecklistDto.setAgentCheck(list.isAgentCheck());
-            commonchecklistDto.setForiengerCheck(list.isForiengerCheck());
-            commonchecklistDto.setFamilyCheck(list.isFamilyCheck());
-            commonchecklistDto.setLoanAmount(list.getLoanAmount());
-            commonchecklistDto.setHousePrice(list.getHousePrice());
-            commonchecklistDto.setJeonseDeposit(list.getJeonseDeposit());
-            commonchecklistDto.setJeonseTerm(list.getJeonseTerm());
-            commonchecklistDto.setLandlordPossessionMonth(list.getLandlordPossessionMonth());
-            commonchecklistDto.setSeniorDebt(list.getSeniorDebt());
-            commonchecklistDto.setHouseID(list.getHouseID());
-            commonchecklistMapper.insertCommonchecklist(commonchecklistDto);
-            return 1;
+        //공통 체크리스트에 문제 없을 경우
+        //wishlistNum은 Autoincrement니 뺀다.
+        CommonchecklistDTO commonchecklistDto = new CommonchecklistDTO();
+        commonchecklistDto.setMemID(list.getMemID());
+        commonchecklistDto.setAgentCheck(list.isAgentCheck());
+        commonchecklistDto.setForiengerCheck(list.isForiengerCheck());
+        commonchecklistDto.setFamilyCheck(list.isFamilyCheck());
+        commonchecklistDto.setLoanAmount(list.getLoanAmount());
+        commonchecklistDto.setHousePrice(list.getHousePrice());
+        commonchecklistDto.setJeonseDeposit(list.getJeonseDeposit());
+        commonchecklistDto.setJeonseTerm(list.getJeonseTerm());
+        commonchecklistDto.setLandlordPossessionMonth(list.getLandlordPossessionMonth());
+        commonchecklistDto.setSeniorDebt(list.getSeniorDebt());
+        commonchecklistDto.setHouseID(list.getHouseID());
+        commonchecklistMapper.insertCommonchecklist(commonchecklistDto);
+        return 1;
 
     }
     @Override
-    public void deleteCommonchecklist(String memID){ //체크리스트 지우기
+    public void deleteCommonchecklist(String memID, int wishlistNum){ //체크리스트 지우기
         if(commonchecklistMapper.checkCommonchecklistID(memID)!=0) {
-            commonchecklistMapper.deleteCommonchecklist(memID);
+            commonchecklistMapper.deleteCommonchecklist(wishlistNum);
         }
     }
     @Override
-    public int checkCommonchecklistID(String memID){ // 값 있는 지 체크
+    public int checkCommonchecklistID(String memID){ // 값 몇개 있는 지 체크
         int cnt = commonchecklistMapper.checkCommonchecklistID(memID);
         System.out.println("serviceImpl >> " + cnt);
         return cnt;
@@ -75,22 +79,34 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
         return user;
     }
     @Override
-    public CommonchecklistDTO getCommonChecklist(String memID){
-        CommonchecklistDTO commonchecklistDTO=commonchecklistMapper.getCommonChecklist(memID);
+    public CommonchecklistDTO getCommonChecklist(int wishlistNum){
+        CommonchecklistDTO commonchecklistDTO=commonchecklistMapper.getCommonChecklist(wishlistNum);
         return commonchecklistDTO;
     }
 
     @Override
-    public String getAddress(String memID){
-        int houseID=commonchecklistMapper.getHouseIDFromCommonchecklist(memID);
+    public String getAddress(int wishlistID){
+        int houseID=commonchecklistMapper.getHouseIDFromCommonchecklist(wishlistID);
         HouseinfoDTO houseinfoDTO=houseMapper.getHouseInfo(houseID);
         String address="";
-        address=houseinfoDTO.getCity()+" "+houseinfoDTO.getGu()+" "+houseinfoDTO.getDong()+" "+houseinfoDTO.getAptName();
+        address=houseinfoDTO.getCity()+" "+houseinfoDTO.getGu()+" "+houseinfoDTO.getDong()+" "+houseinfoDTO.getHouseName();
         return address;
+    }
+    //for push
+    @Override
+    public int getHouseID(int wishlistID){
+        return commonchecklistMapper.getHouseIDFromCommonchecklist(wishlistID);
+    }
+
+    @Override //여기서부터
+    public List<CommonchecklistDTO> getAllCommonChecklist(String memID){
+        List<CommonchecklistDTO> list =new ArrayList<CommonchecklistDTO>();
+        list=
+
     }
 
     @Override
-    public int getHouseID(String memID){
-        return commonchecklistMapper.getHouseIDFromCommonchecklist(memID);
+    public int getHouseIDFromCommonchecklist(int wishlistNum){
+        ;
     }
 }

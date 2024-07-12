@@ -10,11 +10,12 @@
         where houseID = #{houseID}
     </select>
 
+    <!-- 자동완성 -->
     <select id="autocomplete" parameterType="String" resultType="map">
         select
             gu, dong, aptName, houseID
         from houseinfo
-        where aptName like concat('%',#{aptName},'%')
+        where houseName like concat('%',#{houseName},'%')
     </select>
 
 </mapper>
