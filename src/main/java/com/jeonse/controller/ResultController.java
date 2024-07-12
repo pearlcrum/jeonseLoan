@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ResultController {
@@ -31,16 +32,19 @@ public class ResultController {
     @GetMapping("/result")
     public String result(@SessionAttribute(name="memID", required = false) String memID, Model model) {
         if(commonchecklistService.checkCommonchecklistID(memID)>=1) {
-            CommonchecklistDTO commonchecklistDTO = commonchecklistService.getCommonChecklist(memID);
-            IbkansimjeonseDTO ibkansimjeonseDTO = ibkansimjeonseService.getIbkansimjeonseDTO(memID);
-            IbkjeonseDTO ibkjeonseDTO = ibkjeonseService.getIbkjeonseDTO(memID);
+            List<CommonchecklistDTO> list = new ArrayList<CommonchecklistDTO>();
+            list = commonchecklistService.getAllCommonChecklist(memID);
+            int wishlistNum = list.get(0).getWishlistNum();
+            CommonchecklistDTO commonchecklistDTO = commonchecklistService.getCommonChecklist(wishlistNum);
+            IbkansimjeonseDTO ibkansimjeonseDTO = ibkansimjeonseService.getIbkansimjeonseDTO(wishlistNum);
+            IbkjeonseDTO ibkjeonseDTO = ibkjeonseService.getIbkjeonseDTO(wishlistNum);
             MemberDTO memberDTO = memberService.getMemberDTO(memID);
-            String address = commonchecklistService.getAddress(memID);
-            int houseID = commonchecklistService.getHouseID(memID);
+            String address = commonchecklistService.getAddress(wishlistNum);
+            int houseID = commonchecklistService.getHouseID(wishlistNum);
             HouseinfoDTO houseinfoDTO = houseinfoService.getHouseinfo(houseID);
             double lat = houseinfoDTO.getLat();
             double lng = houseinfoDTO.getLng();
-            String aptName = houseinfoDTO.getAptName();
+            String aptName = houseinfoDTO.getHouseName();
 
             String name = memberDTO.getName();
             String pass = memberDTO.getPass();
@@ -49,20 +53,20 @@ public class ResultController {
             int quit = memberDTO.getQuit();
             int nice = memberDTO.getNice();
             int kcb = memberDTO.getKcb();
-            int incomeLastYear = memberDTO.getIncomeLastYear();
-            int incomeYearBeforeLast = memberDTO.getIncomeYearBeforeLast();
-            int debt = memberDTO.getDebt();
+            Long incomeLastYear = memberDTO.getIncomeLastYear();
+            Long incomeYearBeforeLast = memberDTO.getIncomeYearBeforeLast();
+            Long debt = memberDTO.getDebt();
             int birth = memberDTO.getBirth();
             int numhouse = memberDTO.getNumhouse();
             boolean agentCheck = commonchecklistDTO.isAgentCheck();
             boolean foriengerCheck = commonchecklistDTO.isForiengerCheck();
             boolean familyCheck = commonchecklistDTO.isFamilyCheck();
-            int loanAmount = commonchecklistDTO.getLoanAmount();
-            int housePrice = commonchecklistDTO.getHousePrice();
-            int jeonseDeposit = commonchecklistDTO.getJeonseDeposit();
+            Long loanAmount = commonchecklistDTO.getLoanAmount();
+            Long housePrice = commonchecklistDTO.getHousePrice();
+            Long jeonseDeposit = commonchecklistDTO.getJeonseDeposit();
             int jeonseTerm = commonchecklistDTO.getJeonseTerm();
             int landlordPossessionMonth = commonchecklistDTO.getLandlordPossessionMonth();
-            int seniorDebt = commonchecklistDTO.getSeniorDebt();
+            Long seniorDebt = commonchecklistDTO.getSeniorDebt();
             boolean insurance = ibkansimjeonseDTO.isInsurance();
             boolean nearAgent = ibkansimjeonseDTO.isNearAgent();
             boolean shouldPayInTwoWeeks = ibkansimjeonseDTO.isShouldPayInTwoWeeks();
