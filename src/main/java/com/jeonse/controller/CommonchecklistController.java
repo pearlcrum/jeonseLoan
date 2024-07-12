@@ -21,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CommonchecklistController {
@@ -42,9 +44,12 @@ public class CommonchecklistController {
         //체크리스트에 값이 이미 있는 경우
         memberID=memID;
         if(commonchecklistService.checkCommonchecklistID(memID)!=0){
-            ibkansimjeonseService.deleteIbkAnsimjeonse(memberID);
-            ibkjeonseService.deleteIbkjeonse(memberID);
-            commonchecklistService.deleteCommonchecklist(memberID);
+            List<CommonchecklistDTO> list= new ArrayList<CommonchecklistDTO>();
+            list=commonchecklistService.getAllCommonChecklist(memID);
+            int wishlistNum=list.get(0).getWishlistNum(); //현재는 맨 처음 있는거 보여줌
+            ibkansimjeonseService.deleteIbkAnsimjeonse(wishlistNum);
+            ibkjeonseService.deleteIbkjeonse(wishlistNum);
+            commonchecklistService.deleteCommonchecklist(memID,wishlistNum);
             model.addAttribute("message","기존의 체크리스트는 삭제됩니다. 물건지를 다시 검색해 주세요.");
             model.addAttribute("returnURL","/");
 
@@ -129,9 +134,12 @@ public class CommonchecklistController {
         System.out.println("isNearAgent y/n"+  ibkansimjeonseDTO.isNearAgent());
         System.out.println("isShouldPayInTwoWeeks y/n"+  ibkansimjeonseDTO.isShouldPayInTwoWeeks());
         System.out.println("isPropertyRestrict y/n "+  ibkansimjeonseDTO.isPropertyRestrict());
-        System.out.println("getChecklistID "+  ibkansimjeonseDTO.getChecklistID());
         //가지고 온 값들 db insert
-        ibkansimjeonseDTO.setMemID(memberID);
+        //이것도 수정 필요 ( 여러 개 list 들어와야 함)
+        List<CommonchecklistDTO> list= new ArrayList<CommonchecklistDTO>();
+        list=commonchecklistService.getAllCommonChecklist(memberID);
+        int wishlistNum=list.get(0).getWishlistNum(); //현재는 맨 처음 있는거 보여줌
+        ibkansimjeonseDTO.setWishlistNum(wishlistNum);
         int good = ibkansimjeonseService.insertIbkansimjeonse(ibkansimjeonseDTO);
         //good이 1일 경우
         return "redirect:ibkjeonseChecklist";
@@ -166,9 +174,11 @@ public class CommonchecklistController {
         System.out.println("nowJeonse y/n "+  ibkjeonseDTO.isNowJeonse());
         System.out.println("creditManagement "+  ibkjeonseDTO.isCreditManagement());
         System.out.println("landLordPermit "+  ibkjeonseDTO.isLandLordPermit());
-        System.out.println("checklistID "+  ibkjeonseDTO.getChecklistID());
-        //가지고 온 값들 db insert
-        ibkjeonseDTO.setMemID(memberID);
+        //이것도 수정 필요 ( 여러 개 list 들어와야 함)
+        List<CommonchecklistDTO> list= new ArrayList<CommonchecklistDTO>();
+        list=commonchecklistService.getAllCommonChecklist(memberID);
+        int wishlistNum=list.get(0).getWishlistNum(); //현재는 맨 처음 있는거 보여줌
+        ibkjeonseDTO.setWishlistNum(wishlistNum);
         int good = ibkjeonseService.insertIbkjeonse(ibkjeonseDTO);
         //good이 1일 경우
         return "redirect:result";
