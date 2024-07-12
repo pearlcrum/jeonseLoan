@@ -4,7 +4,8 @@
     <!-- 값 넣기 -->
     <!-- wishlistNum auto increment이기에 따로 insert x -->
     <insert id="insertCommonchecklist" parameterType="com.jeonse.dto.CommonchecklistDTO">
-        insert into commonchecklist values(
+        insert into commonchecklist (memID, agentCheck, foriengerCheck, familyCheck, loanAmount, housePrice, jeonseDeposit, jeonseTerm, landlordPossessionMonth, seniorDebt, houseID)
+                                        values(
                                               #{memID},
                                               #{agentCheck},
                                               #{foriengerCheck},
@@ -16,7 +17,7 @@
                                               #{landlordPossessionMonth},
                                               #{seniorDebt},
                                               #{houseID}
-                                          )
+                                        )
     </insert>
     <!-- 값 지우기 -->
     <delete id="deleteCommonchecklist" parameterType="int">

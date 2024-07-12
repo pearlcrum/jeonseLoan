@@ -34,7 +34,7 @@ public class ResultController {
         if(commonchecklistService.checkCommonchecklistID(memID)>=1) {
             List<CommonchecklistDTO> list = new ArrayList<CommonchecklistDTO>();
             list = commonchecklistService.getAllCommonChecklist(memID);
-            int wishlistNum = list.get(0).getWishlistNum();
+            int wishlistNum = 1;
             CommonchecklistDTO commonchecklistDTO = commonchecklistService.getCommonChecklist(wishlistNum);
             IbkansimjeonseDTO ibkansimjeonseDTO = ibkansimjeonseService.getIbkansimjeonseDTO(wishlistNum);
             IbkjeonseDTO ibkjeonseDTO = ibkjeonseService.getIbkjeonseDTO(wishlistNum);

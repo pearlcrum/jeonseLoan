@@ -46,7 +46,8 @@ public class CommonchecklistController {
         if(commonchecklistService.checkCommonchecklistID(memID)!=0){
             List<CommonchecklistDTO> list= new ArrayList<CommonchecklistDTO>();
             list=commonchecklistService.getAllCommonChecklist(memID);
-            int wishlistNum=list.get(0).getWishlistNum(); //현재는 맨 처음 있는거 보여줌
+            //int wishlistNum=list.get(0).getWishlistNum(); //현재는 맨 처음 있는거 보여줌
+            int wishlistNum=1;
             ibkansimjeonseService.deleteIbkAnsimjeonse(wishlistNum);
             ibkjeonseService.deleteIbkjeonse(wishlistNum);
             commonchecklistService.deleteCommonchecklist(memID,wishlistNum);
@@ -87,9 +88,12 @@ public class CommonchecklistController {
         System.out.println("jeonseTerm "+  commonchecklistDTO.getJeonseTerm());
         System.out.println("landlordPoss y/n"+  commonchecklistDTO.getLandlordPossessionMonth());
         System.out.println("seniorDebt "+  commonchecklistDTO.getSeniorDebt());
+
         //가지고 온 값들 db insert
         commonchecklistDTO.setMemID(memberID);
         commonchecklistDTO.setHouseID(houseID);
+        System.out.println("houseID"+ commonchecklistDTO.getHouseID());
+
         int good = commonchecklistService.insertCommonchecklist(commonchecklistDTO);
         //good이 1일 경우
         return "redirect:ibkansimjeonseChecklist";
@@ -138,7 +142,7 @@ public class CommonchecklistController {
         //이것도 수정 필요 ( 여러 개 list 들어와야 함)
         List<CommonchecklistDTO> list= new ArrayList<CommonchecklistDTO>();
         list=commonchecklistService.getAllCommonChecklist(memberID);
-        int wishlistNum=list.get(0).getWishlistNum(); //현재는 맨 처음 있는거 보여줌
+        int wishlistNum=1; //현재는 맨 처음 있는거 보여줌
         ibkansimjeonseDTO.setWishlistNum(wishlistNum);
         int good = ibkansimjeonseService.insertIbkansimjeonse(ibkansimjeonseDTO);
         //good이 1일 경우
@@ -177,7 +181,8 @@ public class CommonchecklistController {
         //이것도 수정 필요 ( 여러 개 list 들어와야 함)
         List<CommonchecklistDTO> list= new ArrayList<CommonchecklistDTO>();
         list=commonchecklistService.getAllCommonChecklist(memberID);
-        int wishlistNum=list.get(0).getWishlistNum(); //현재는 맨 처음 있는거 보여줌
+        //int wishlistNum=list.get(0).getWishlistNum(); //현재는 맨 처음 있는거 보여줌
+        int wishlistNum=1;
         ibkjeonseDTO.setWishlistNum(wishlistNum);
         int good = ibkjeonseService.insertIbkjeonse(ibkjeonseDTO);
         //good이 1일 경우

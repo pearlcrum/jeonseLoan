@@ -317,6 +317,7 @@
                                 <div class="card-body">
                                     <input type="radio" name="landlordPossessionMonth" th:field="*{landlordPossessionMonth}" value=1> O</input><br>
                                     <input type="radio" name="landlordPossessionMonth" th:field="*{landlordPossessionMonth}" value=0> X</input>
+
                                 </div>
                             </div>
                         </div>
@@ -388,6 +389,8 @@
             alert("전부 입력해주세요");
             //event.preventDefault();
         }else{
+<!--            const params = new URLSearchParams(window.location.search);-->
+<!--            document.getElementById('houseID').value = params.get('houseID');-->
             checklistNextStep.submit();
         }
     }

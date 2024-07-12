@@ -8,7 +8,7 @@
         #{insurance},
         #{nearAgent},
         #{shouldPayInTwoWeeks},
-        #{propertyRestrict},
+        #{propertyRestrict}
         )
     </insert>
     <!--가져오기-->
