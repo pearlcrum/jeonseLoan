@@ -5,14 +5,11 @@ import com.jeonse.dto.HouseinfoDTO;
 import com.jeonse.dto.MemberDTO;
 import com.jeonse.repository.CommonchecklistMapper;
 import com.jeonse.repository.HouseinfoMapper;
-import com.jeonse.repository.IbkansimjeonseMapper;
 import com.jeonse.repository.MemberMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -98,15 +95,13 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
         return commonchecklistMapper.getHouseIDFromCommonchecklist(wishlistID);
     }
 
-    @Override //여기서부터
+    @Override
     public List<CommonchecklistDTO> getAllCommonChecklist(String memID){
-        List<CommonchecklistDTO> list =new ArrayList<CommonchecklistDTO>();
-        list=
-
+        return commonchecklistMapper.getAllCommonChecklist(memID);
     }
 
     @Override
     public int getHouseIDFromCommonchecklist(int wishlistNum){
-        ;
+        return commonchecklistMapper.getHouseIDFromCommonchecklist(wishlistNum);
     }
 }

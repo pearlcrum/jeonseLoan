@@ -15,25 +15,24 @@ public class IbkjeonseServiceImpl implements IbkjeonseService{
     @Override
     public int insertIbkjeonse(@NotNull IbkjeonseDTO list){
         IbkjeonseDTO ibkjeonseDTO=new IbkjeonseDTO();
-        ibkjeonseDTO.setMemID(list.getMemID());
+        ibkjeonseDTO.setWishlistNum(list.getWishlistNum());
         ibkjeonseDTO.setJeonip(list.isJeonip());
         ibkjeonseDTO.setConfirmDate(list.isConfirmDate());
         ibkjeonseDTO.setInterestRate(list.getInterestRate());
         ibkjeonseDTO.setNowJeonse(list.isNowJeonse());
         ibkjeonseDTO.setCreditManagement(list.isCreditManagement());
         ibkjeonseDTO.setLandLordPermit(list.isLandLordPermit());
-        ibkjeonseDTO.setChecklistID(list.getChecklistID());
         ibkjeonseMapper.insertIbkjeonse(ibkjeonseDTO);
         return 1;
     }
     @Override
-    public IbkjeonseDTO getIbkjeonseDTO(String memID){
-        IbkjeonseDTO ibkjeonseDTO=ibkjeonseMapper.getIbkjeonseDTO(memID);
+    public IbkjeonseDTO getIbkjeonseDTO(int wishlistNum){
+        IbkjeonseDTO ibkjeonseDTO=ibkjeonseMapper.getIbkjeonseDTO(wishlistNum);
         return ibkjeonseDTO;
     }
     @Override
-    public int deleteIbkjeonse(String memID){
-        ibkjeonseMapper.deleteIbkjeonse(memID);
+    public int deleteIbkjeonse(int wishlistNum){
+        ibkjeonseMapper.deleteIbkjeonse(wishlistNum);
         return 0;
     }
 }

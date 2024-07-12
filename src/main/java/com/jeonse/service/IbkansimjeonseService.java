@@ -9,6 +9,6 @@ public interface IbkansimjeonseService {
 
     int insertIbkansimjeonse(IbkansimjeonseDTO ibkansimjeonseDTO);
 
-    IbkansimjeonseDTO getIbkansimjeonseDTO(String memID);
-    int deleteIbkAnsimjeonse(String memID);
+    IbkansimjeonseDTO getIbkansimjeonseDTO(int wishlistNum);
+    int deleteIbkAnsimjeonse(int wishlistNum);
 }

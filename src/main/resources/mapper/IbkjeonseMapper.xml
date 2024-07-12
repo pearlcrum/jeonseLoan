@@ -18,7 +18,7 @@
         select * from ibkjeonse where wishlistNum = #{wishlistNum}
     </select>
 
-    <delete id="deleteIbkjeonse" parameterType="String">
+    <delete id="deleteIbkjeonse" parameterType="int">
         delete from ibkjeonse where wishlistNum=#{wishlistNum}
     </delete>
 </mapper>

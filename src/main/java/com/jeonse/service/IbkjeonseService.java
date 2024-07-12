@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public interface IbkjeonseService {
     int insertIbkjeonse(IbkjeonseDTO ibkjeonseDTO);
 
-    IbkjeonseDTO getIbkjeonseDTO(String memID);
+    IbkjeonseDTO getIbkjeonseDTO(int wishlistNum);
 
-    int deleteIbkjeonse(String memID);
+    int deleteIbkjeonse(int wishlistNum);
 }

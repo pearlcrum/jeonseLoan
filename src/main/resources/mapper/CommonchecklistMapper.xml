@@ -31,7 +31,7 @@
         select * from commonchecklist where wishlistNum = #{wishlistNum}
     </select>
     <!-- 가지고 있는 모든 commonchecklist 반환 -->
-    <select id="getAllCommonChecklist" parameterType="String" resultType="list">
+    <select id="getAllCommonChecklist" parameterType="String" resultType="map">
         select * from commonchecklist where memID = #{memID}
     </select>
     <!-- 집 아이디 반환 -->

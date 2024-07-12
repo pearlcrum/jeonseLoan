@@ -13,7 +13,7 @@
     <!-- 자동완성 -->
     <select id="autocomplete" parameterType="String" resultType="map">
         select
-            gu, dong, aptName, houseID
+            gu, dong, houseName, houseID
         from houseinfo
         where houseName like concat('%',#{houseName},'%')
     </select>

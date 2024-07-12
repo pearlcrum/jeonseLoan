@@ -34,11 +34,9 @@ public class MemberServiceImpl implements MemberService{
 
 
 
-
-
         System.out.println("서비스에서 나와"+member);
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); //암호화
         memberDto.setPass(passwordEncoder.encode(member.getPass()));
 
         memberMapper.insertMem(memberDto);

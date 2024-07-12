@@ -31,24 +31,23 @@ public class IbkansimjeonseServiceImpl implements IbkansimjeonseService{
         }else {*/
         //공통 체크리스트에 문제 없을 경우
         IbkansimjeonseDTO ibkansimjeonseDTO = new IbkansimjeonseDTO();
-        ibkansimjeonseDTO.setMemID(list.getMemID());
+        ibkansimjeonseDTO.setWishlistNum(list.getWishlistNum());
         ibkansimjeonseDTO.setInsurance(list.isInsurance());
         ibkansimjeonseDTO.setNearAgent(list.isNearAgent());
         ibkansimjeonseDTO.setShouldPayInTwoWeeks(list.isShouldPayInTwoWeeks());
         ibkansimjeonseDTO.setPropertyRestrict(list.isPropertyRestrict());
-        ibkansimjeonseDTO.setChecklistID(list.getChecklistID());
         ibkansimjeonseMapper.insertIbkansimjeonse(ibkansimjeonseDTO);
         return 1;
 
     }
     @Override
-    public IbkansimjeonseDTO getIbkansimjeonseDTO(String memID){
-        IbkansimjeonseDTO ibkansimjeonseDTO=ibkansimjeonseMapper.getIbkansimjeonseDTO(memID);
+    public IbkansimjeonseDTO getIbkansimjeonseDTO(int wishlistNum){
+        IbkansimjeonseDTO ibkansimjeonseDTO=ibkansimjeonseMapper.getIbkansimjeonseDTO(wishlistNum);
         return ibkansimjeonseDTO;
     }
     @Override
-    public int deleteIbkAnsimjeonse(String memID){
-        ibkansimjeonseMapper.deleteIbkAnsimjeonse(memID);
+    public int deleteIbkAnsimjeonse(int wishlistNum){
+        ibkansimjeonseMapper.deleteIbkAnsimjeonse(wishlistNum);
         return 0;
     }
 }

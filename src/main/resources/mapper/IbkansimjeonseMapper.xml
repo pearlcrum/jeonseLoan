@@ -11,7 +11,7 @@
         #{propertyRestrict},
         )
     </insert>
-    <!--새롭게 추가-->
+    <!--가져오기-->
     <select id="getIbkansimjeonseDTO" parameterType="int" resultType="com.jeonse.dto.IbkansimjeonseDTO">
         select * from ibkansimjeonse where wishlistNum = #{wishlistNum}
     </select>
