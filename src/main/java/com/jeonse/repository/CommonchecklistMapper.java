@@ -14,7 +14,7 @@ public interface CommonchecklistMapper {
     // 값 삭제
     void deleteCommonchecklist(int wishlistNum); // 값 삭제
 
-    int checkCommonchecklistID(int wishlistNum); //중복 값 확인
+    int checkCommonchecklistID(String memID); //중복 값 확인
 
     int getHouseIDFromCommonchecklist(int wishlistNum);
 
