@@ -35,13 +35,14 @@ public class profileController {
     @GetMapping("/profile")
     public String profile(@SessionAttribute(name = "memID", required = false) String memID, Model model) {
 
+        int wishlistID=1;
         int cnt=0;
         if(commonchecklistService.checkCommonchecklistID(memID)>=1) {
-            CommonchecklistDTO commonchecklistDTO = commonchecklistService.getCommonChecklist(memID);
-            IbkansimjeonseDTO ibkansimjeonseDTO = ibkansimjeonseService.getIbkansimjeonseDTO(memID);
-            IbkjeonseDTO ibkjeonseDTO = ibkjeonseService.getIbkjeonseDTO(memID);
+            CommonchecklistDTO commonchecklistDTO = commonchecklistService.getCommonChecklist(wishlistID);
+            IbkansimjeonseDTO ibkansimjeonseDTO = ibkansimjeonseService.getIbkansimjeonseDTO(wishlistID);
+            IbkjeonseDTO ibkjeonseDTO = ibkjeonseService.getIbkjeonseDTO(wishlistID);
             MemberDTO memberDTO = memberService.getMemberDTO(memID);
-            String address = commonchecklistService.getAddress(memID);
+            String address = commonchecklistService.getAddress(wishlistID);
             memberID = memID;
 
             String name = memberDTO.getName();
@@ -51,20 +52,20 @@ public class profileController {
             int quit = memberDTO.getQuit();
             int nice = memberDTO.getNice();
             int kcb = memberDTO.getKcb();
-            int incomeLastYear = memberDTO.getIncomeLastYear();
-            int incomeYearBeforeLast = memberDTO.getIncomeYearBeforeLast();
-            int debt = memberDTO.getDebt();
+            long incomeLastYear = memberDTO.getIncomeLastYear();
+            long incomeYearBeforeLast = memberDTO.getIncomeYearBeforeLast();
+            long debt = memberDTO.getDebt();
             int birth = memberDTO.getBirth();
             int numhouse = memberDTO.getNumhouse();
             boolean agentCheck = commonchecklistDTO.isAgentCheck();
             boolean foriengerCheck = commonchecklistDTO.isForiengerCheck();
             boolean familyCheck = commonchecklistDTO.isFamilyCheck();
-            int loanAmount = commonchecklistDTO.getLoanAmount();
-            int housePrice = commonchecklistDTO.getHousePrice();
-            int jeonseDeposit = commonchecklistDTO.getJeonseDeposit();
+            long loanAmount = commonchecklistDTO.getLoanAmount();
+            long housePrice = commonchecklistDTO.getHousePrice();
+            long jeonseDeposit = commonchecklistDTO.getJeonseDeposit();
             int jeonseTerm = commonchecklistDTO.getJeonseTerm();
             int landlordPossessionMonth = commonchecklistDTO.getLandlordPossessionMonth();
-            int seniorDebt = commonchecklistDTO.getSeniorDebt();
+            long seniorDebt = commonchecklistDTO.getSeniorDebt();
             boolean insurance = ibkansimjeonseDTO.isInsurance();
             boolean nearAgent = ibkansimjeonseDTO.isNearAgent();
             boolean shouldPayInTwoWeeks = ibkansimjeonseDTO.isShouldPayInTwoWeeks();
@@ -254,9 +255,9 @@ public class profileController {
         System.out.println("is it working ????");
         //httpServletRequest.getSession().invalidate(); //세션 파기
 
-        ibkansimjeonseService.deleteIbkAnsimjeonse(memberID);
-        ibkjeonseService.deleteIbkjeonse(memberID);
-        commonchecklistService.deleteCommonchecklist(memberID);
+        //ibkansimjeonseService.deleteIbkAnsimjeonse(memberID);
+        //ibkjeonseService.deleteIbkjeonse(memberID);
+        //commonchecklistService.deleteCommonchecklist(memberID);
         memberService.deleteMember(memberID);//현재 값 잘 들어가 있음.
         return "redirect:loginForm";
     }
