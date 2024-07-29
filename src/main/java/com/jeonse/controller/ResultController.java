@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.ArrayList;
@@ -29,11 +31,16 @@ public class ResultController {
     private HouseinfoService houseinfoService;
 
 
-    @GetMapping("/result")
-    public String result(@SessionAttribute(name="memID", required = false) String memID, Model model) {
+    @GetMapping(value={"/result","/result/{wishlistnum}"})
+    public String result(@SessionAttribute(name="memID", required = false) String memID,
+                         @RequestParam(value="wishlistnum", defaultValue="") String wishlistnum, Model model) {
         if(commonchecklistService.checkCommonchecklistID(memID)>=1) {
-
-            int wishlistNum=commonchecklistService.getLatestWishlistNumFromCommonchecklist(memID);
+            int wishlistNum;
+            if(wishlistnum.isEmpty()){
+                wishlistNum=commonchecklistService.getLatestWishlistNumFromCommonchecklist(memID);
+            }else{
+                wishlistNum=Integer.parseInt(wishlistnum);
+            }
             CommonchecklistDTO commonchecklistDTO = commonchecklistService.getCommonChecklist(wishlistNum);
             IbkansimjeonseDTO ibkansimjeonseDTO = ibkansimjeonseService.getIbkansimjeonseDTO(wishlistNum);
             IbkjeonseDTO ibkjeonseDTO = ibkjeonseService.getIbkjeonseDTO(wishlistNum);

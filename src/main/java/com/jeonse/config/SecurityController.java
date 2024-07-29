@@ -1,6 +1,7 @@
 package com.jeonse.config;
 
 import com.jeonse.dto.HouseinfoDTO;
+import com.jeonse.service.CommonchecklistService;
 import com.jeonse.service.HouseinfoService;
 import com.jeonse.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class SecurityController {
@@ -28,18 +27,33 @@ public class SecurityController {
     @Autowired
     HouseinfoService houseinfoService;
 
+    @Autowired
+    CommonchecklistService commonchecklistService;
+
     @RequestMapping("/")
-    public String home(@AuthenticationPrincipal UserDetails userInfo, HttpServletRequest httpServletRequest, Model model) {
+    public String home(@AuthenticationPrincipal UserDetails userInfo, HttpServletRequest httpServletRequest, Model model) throws Exception {
         if(userInfo!=null) {
             model.addAttribute("user", memberService.getUserInfo(userInfo.getUsername()));
 
         }
         HttpSession session = httpServletRequest.getSession(true);
-
-        session.setAttribute("memID", userInfo.getUsername());
-        System.out.println("Security Controller " + userInfo.getUsername());
+        String memID=userInfo.getUsername();
+        session.setAttribute("memID", memID);
+        System.out.println("Security Controller " + memID);
         session.setMaxInactiveInterval(1800); //session이 30분동안 유지됨.
-
+        //한 개 이상 완성된 checklist존재 시
+        if(commonchecklistService.checkCommonchecklistID(memID)>=1) {
+            List<Map<String, Object>> resultList = commonchecklistService.getAllCommonChecklist(memID);
+            Map<String, Object> allCommonChecklist = new LinkedHashMap<>();
+            for (int i = 0; i < resultList.size(); i++) {
+                int houseId=(int)resultList.get(i).get("houseID");
+                HouseinfoDTO house=houseinfoService.getHouseinfo(houseId);
+                String wishlistnum=resultList.get(i).get("wishlistNum").toString();
+                String address=house.getCity()+" "+house.getGu()+" "+house.getDong()+" "+house.getHouseName();
+                allCommonChecklist.put(wishlistnum,address);
+            }
+            model.addAttribute("allCommonChecklist", allCommonChecklist);
+        }
         return "/index";
     }
     @PostMapping(value="/houseSearch")
@@ -55,6 +69,15 @@ public class SecurityController {
             (@RequestParam Map<String, Object> paramMap) throws Exception{
 
         List<Map<String, Object>> resultList = houseinfoService.autocomplete(paramMap);
+        paramMap.put("resultList", resultList);
+
+        return paramMap;
+    }
+    @RequestMapping(value = "/getAllHouseInfo")
+    public @ResponseBody Map<String, Object> getAllHouseInfo
+            (@RequestParam Map<String, Object> paramMap) throws Exception{
+
+        List<Map<String, Object>> resultList = houseinfoService.getAllHouseInfo();
         paramMap.put("resultList", resultList);
 
         return paramMap;

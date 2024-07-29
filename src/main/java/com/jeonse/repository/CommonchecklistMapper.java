@@ -4,6 +4,7 @@ import com.jeonse.dto.CommonchecklistDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 //24.07.07 재성 수정 완료
 @Mapper
@@ -20,7 +21,7 @@ public interface CommonchecklistMapper {
 
     CommonchecklistDTO getCommonChecklist(int wishlistNum);
 
-    List<CommonchecklistDTO> getAllCommonChecklist(String memID);
+    List<Map<String, Object>> getAllCommonChecklist(String memID) throws Exception;
 
     int getLatestWishlistNumFromCommonchecklist(String memID);
 }

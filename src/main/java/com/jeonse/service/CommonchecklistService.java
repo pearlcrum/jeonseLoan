@@ -5,6 +5,7 @@ import com.jeonse.dto.MemberDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 //24.07.07 재성 수정 완료
 @Service
@@ -25,8 +26,7 @@ public interface CommonchecklistService {
     //특정 commonchecklist 반환
     CommonchecklistDTO getCommonChecklist(int wishlistNum);
 
-    List<CommonchecklistDTO> getAllCommonChecklist(String memID);
-
+    List<Map<String, Object>> getAllCommonChecklist(String memID) throws Exception;
     int getHouseIDFromCommonchecklist(int wishlistNum);
 
     int getLatestWishlistNumFromCommonchecklist(String memID);

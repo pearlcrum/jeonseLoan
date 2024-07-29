@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CommonchecklistServiceImpl implements CommonchecklistService{
@@ -96,7 +97,7 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
     }
 
     @Override
-    public List<CommonchecklistDTO> getAllCommonChecklist(String memID){
+    public List<Map<String, Object>> getAllCommonChecklist(String memID) throws Exception{
         return commonchecklistMapper.getAllCommonChecklist(memID);
     }
 

@@ -15,4 +15,7 @@ public interface HouseinfoMapper {
 
     // 매물 자동완성 조회
     List<Map<String, Object>> autocomplete(Map<String, Object> paramMap) throws Exception;
+
+    // 다 가져오기
+    List<Map<String, Object>> getAllHouseInfo() throws Exception;
 }

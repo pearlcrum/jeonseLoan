@@ -24,4 +24,9 @@ public class HouseinfoServiceImpl implements HouseinfoService {
         return houseinfoMapper.autocomplete(paramMap);
     }
 
+    @Override
+    public List<Map<String,Object>> getAllHouseInfo() throws Exception{
+        return houseinfoMapper.getAllHouseInfo();
+    }
+
 }

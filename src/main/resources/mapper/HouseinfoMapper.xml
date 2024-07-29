@@ -9,6 +9,12 @@
         from houseinfo
         where houseID = #{houseID}
     </select>
+    <!-- 모든 house 조회 -->
+    <select id="getAllHouseInfo" parameterType="int" resultType="map">
+        select
+        houseID, houseType, city, gu, dong, houseName,dealAmount,buildYear,dealYear,area,floor,lat,lng
+        from houseinfo
+    </select>
 
     <!-- 자동완성 -->
     <select id="autocomplete" parameterType="String" resultType="map">

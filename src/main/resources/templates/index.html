@@ -81,11 +81,20 @@
                     <button class="align-middle" type="button" style="display:inline" onclick="searchHouse()">검색</button>
                     <div id="search-suggestions"></div>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-link">
+                    <h4>최근 조회 LIST</h4>
+                </li>
+                <li class="sidebar-link">
+                <div th:each="entry: ${allCommonChecklist}">
+                   <a th:href="'/result/'+${entry.key}" th:text="${entry.value}"></a><br>
+                </div>
+                </li>
+                    <!--
                     <a class="sidebar-link" href="/result">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">체크리스트결과</span>
                     </a>
-                </li>
+                    -->
+
             </ul>
         </div>
     </nav>
@@ -141,6 +150,7 @@
             center: position,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+
     });
 
     // 아파트 검색 시 지도에 핑띄우기
@@ -167,9 +177,13 @@
                 });
         google.maps.event.addListener(marker, 'click', function() {
             // Construct the URL
-            var url = '/checklist?houseID=' + house.houseID;
+            //var url = '/checklist?houseID=' + house.houseID;
             // Redirect to the URL
-            window.location.href = url;
+            //window.location.href = url;
+            var infoWindow = new google.maps.InfoWindow({
+            content: contentString
+            });
+            infoWindow.open(map,marker);
         });
         var contentString = `
             <div class="infoWindow-content">

@@ -12,4 +12,6 @@ public interface HouseinfoService {
     HouseinfoDTO getHouseinfo(int houseID);
 
     List<Map<String, Object>> autocomplete(Map<String, Object> paramMap) throws Exception;
+
+    List<Map<String,Object>> getAllHouseInfo() throws Exception;
 }

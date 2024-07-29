@@ -33,7 +33,11 @@
     </select>
     <!-- 가지고 있는 모든 commonchecklist 반환 -->
     <select id="getAllCommonChecklist" parameterType="String" resultType="map">
-        select * from commonchecklist where memID = #{memID}
+        SELECT a.houseID, a.wishlistNum
+        FROM commonchecklist a
+        JOIN ibkansimjeonse b ON a.wishlistNum = b.wishlistNum
+        JOIN ibkjeonse c ON b.wishlistNum = c.wishlistNum
+        WHERE a.memID = #{memID}
     </select>
     <!-- 집 아이디 반환 -->
     <select id="getHouseIDFromCommonchecklist" parameterType="int" resultType="int">
