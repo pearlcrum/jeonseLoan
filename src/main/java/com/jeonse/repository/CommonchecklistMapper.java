@@ -21,4 +21,6 @@ public interface CommonchecklistMapper {
     CommonchecklistDTO getCommonChecklist(int wishlistNum);
 
     List<CommonchecklistDTO> getAllCommonChecklist(String memID);
+
+    int getLatestWishlistNumFromCommonchecklist(String memID);
 }

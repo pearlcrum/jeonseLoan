@@ -39,4 +39,9 @@
     <select id="getHouseIDFromCommonchecklist" parameterType="int" resultType="int">
         select houseID from commonchecklist where wishlistNum = #{wishlistNum}
     </select>
+    <!--가장 최근 wishlistNum 반환 -->
+    <select id="getLatestWishlistNumFromCommonchecklist" parameterType="String" resultType="int">
+        select wishlistNum from commonchecklist where memID=#{memID} order by wishlistNum desc limit 1;
+    </select>
+
 </mapper>

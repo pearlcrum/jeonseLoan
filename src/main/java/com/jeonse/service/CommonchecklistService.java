@@ -28,4 +28,6 @@ public interface CommonchecklistService {
     List<CommonchecklistDTO> getAllCommonChecklist(String memID);
 
     int getHouseIDFromCommonchecklist(int wishlistNum);
+
+    int getLatestWishlistNumFromCommonchecklist(String memID);
 }

@@ -36,6 +36,8 @@ public class CommonchecklistController {
     private IbkjeonseService ibkjeonseService;
     private String memberID;
 
+    private int wishlistNum;
+
     private int houseID;
 
     //체크리스트 보여주기
@@ -43,6 +45,7 @@ public class CommonchecklistController {
     public String checklist(@SessionAttribute(name="memID", required = false) String memID,@RequestParam(value="houseID") String houseId, CommonchecklistDTO commonchecklistDTO, Model model) {
         //체크리스트에 값이 이미 있는 경우
         memberID=memID;
+        /* 여러개의 체크리스트가 들어가야하기에 수정
         if(commonchecklistService.checkCommonchecklistID(memID)!=0){
             List<CommonchecklistDTO> list= new ArrayList<CommonchecklistDTO>();
             list=commonchecklistService.getAllCommonChecklist(memID);
@@ -56,23 +59,24 @@ public class CommonchecklistController {
 
             return "message";
             //return "profile";
-        }else{
-            //체크리스트에 값이 없는 경우
-            //memid 를 받아야함.
-            houseID=Integer.parseInt(houseId);
-            System.out.println("**** house ID is "+ houseID);
-            System.out.println("memID is " + memID);
-            MemberDTO member=commonchecklistService.getMember(memID);
-            System.out.println("nice is"+ member.getNice());
-            System.out.println("kcb is"+ member.getKcb());
-            System.out.println("incomeLastYear is"+ member.getIncomeLastYear());
-            System.out.println("incomeYearBefore is"+ member.getIncomeYearBeforeLast());
-            System.out.println("debt is"+ member.getDebt());
-            System.out.println("birth is"+ member.getBirth());
-            System.out.println("numhouse is"+ member.getNumhouse());
-            return "checklist";
+        }else
+     */
+        //체크리스트 추가
+        //memid 를 받아야함.
+        houseID=Integer.parseInt(houseId);
+        System.out.println("**** house ID is "+ houseID);
+        System.out.println("memID is " + memID);
+        MemberDTO member=commonchecklistService.getMember(memID);
+        System.out.println("nice is"+ member.getNice());
+        System.out.println("kcb is"+ member.getKcb());
+        System.out.println("incomeLastYear is"+ member.getIncomeLastYear());
+        System.out.println("incomeYearBefore is"+ member.getIncomeYearBeforeLast());
+        System.out.println("debt is"+ member.getDebt());
+        System.out.println("birth is"+ member.getBirth());
+        System.out.println("numhouse is"+ member.getNumhouse());
+        return "checklist";
 
-        }
+
     }
 
     @PostMapping("/checklistNextStep")
@@ -95,7 +99,9 @@ public class CommonchecklistController {
         System.out.println("houseID"+ commonchecklistDTO.getHouseID());
 
         int good = commonchecklistService.insertCommonchecklist(commonchecklistDTO);
-        //good이 1일 경우
+        wishlistNum=commonchecklistService.getLatestWishlistNumFromCommonchecklist(memberID);
+        System.out.println("What is wishlist Num?"+wishlistNum);
+
         return "redirect:ibkansimjeonseChecklist";
         //good이 0일 경우 error 페이지 개발 필요
     }
@@ -115,20 +121,21 @@ public class CommonchecklistController {
 
     }
     @GetMapping("/ibkansimjeonseChecklist")
-    public String ibkansimjeonseChecklist(@SessionAttribute(name="memID", required = false) String memID, IbkansimjeonseDTO ibkansimjeonseDTO, Model model) {
-        //체크리스트에 값이 이미 있는 경우
+    public String ibkansimjeonseChecklist(@SessionAttribute(name="memID", required = false) String memID, IbkansimjeonseDTO ibkansimjeonseDTO, Model model, RedirectAttributes redirect) {
+        /*//체크리스트에 값이 이미 있는 경우
         if(commonchecklistService.checkCommonchecklistID(memID)==0){
             model.addAttribute("message","공통 체크리스트부터 작성하셔야 합니다.");
             model.addAttribute("returnURL","/");
             return "message";
-        }else {
+        }else {*/
             //체크리스트에 값이 없는 경우
             //memid 를 받아야함.
             memberID = memID;
+
             System.out.println("memID is " + memID);
 
             return "ibkansimjeonseChecklist";
-        }
+
     }
     @PostMapping("/ansimJeonseCheckList")
     public String ansimJeonseCheckList(IbkansimjeonseDTO ibkansimjeonseDTO){
@@ -139,10 +146,7 @@ public class CommonchecklistController {
         System.out.println("isShouldPayInTwoWeeks y/n"+  ibkansimjeonseDTO.isShouldPayInTwoWeeks());
         System.out.println("isPropertyRestrict y/n "+  ibkansimjeonseDTO.isPropertyRestrict());
         //가지고 온 값들 db insert
-        //이것도 수정 필요 ( 여러 개 list 들어와야 함)
-        List<CommonchecklistDTO> list= new ArrayList<CommonchecklistDTO>();
-        list=commonchecklistService.getAllCommonChecklist(memberID);
-        int wishlistNum=1; //현재는 맨 처음 있는거 보여줌
+        //가장 최근에 진행했던 wishlistNum
         ibkansimjeonseDTO.setWishlistNum(wishlistNum);
         int good = ibkansimjeonseService.insertIbkansimjeonse(ibkansimjeonseDTO);
         //good이 1일 경우
@@ -154,11 +158,11 @@ public class CommonchecklistController {
     @GetMapping("/ibkjeonseChecklist")
     public String ibkjeonseChecklist(@SessionAttribute(name="memID", required = false) String memID, IbkjeonseDTO ibkjeonseDTO, Model model) {
         //체크리스트에 값이 이미 있는 경우
-        if(commonchecklistService.checkCommonchecklistID(memID)==0){
+        /*if(commonchecklistService.checkCommonchecklistID(memID)==0){
             model.addAttribute("message","공통 체크리스트부터 작성하셔야 합니다.");
             model.addAttribute("returnURL","/");
             return "message";
-        }else {
+        }else {*/
             //체크리스트에 값이 없는 경우
             //memid 를 받아야함.
             memberID = memID;
@@ -166,7 +170,7 @@ public class CommonchecklistController {
 
             //추후 결과 화면 값 나오면 여기서 체크
             return "ibkjeonseChecklist";
-        }
+
     }
     @PostMapping("/ibkJeonseCheckList")
     public String ibkJeonseCheckList(IbkjeonseDTO ibkjeonseDTO){
@@ -178,11 +182,7 @@ public class CommonchecklistController {
         System.out.println("nowJeonse y/n "+  ibkjeonseDTO.isNowJeonse());
         System.out.println("creditManagement "+  ibkjeonseDTO.isCreditManagement());
         System.out.println("landLordPermit "+  ibkjeonseDTO.isLandLordPermit());
-        //이것도 수정 필요 ( 여러 개 list 들어와야 함)
-        List<CommonchecklistDTO> list= new ArrayList<CommonchecklistDTO>();
-        list=commonchecklistService.getAllCommonChecklist(memberID);
-        //int wishlistNum=list.get(0).getWishlistNum(); //현재는 맨 처음 있는거 보여줌
-        int wishlistNum=1;
+        //가장 최근에 사용했던 wishlistNum
         ibkjeonseDTO.setWishlistNum(wishlistNum);
         int good = ibkjeonseService.insertIbkjeonse(ibkjeonseDTO);
         //good이 1일 경우

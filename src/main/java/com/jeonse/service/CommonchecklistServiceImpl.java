@@ -104,4 +104,9 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
     public int getHouseIDFromCommonchecklist(int wishlistNum){
         return commonchecklistMapper.getHouseIDFromCommonchecklist(wishlistNum);
     }
+
+    @Override
+    public int getLatestWishlistNumFromCommonchecklist(String memID){
+        return commonchecklistMapper.getLatestWishlistNumFromCommonchecklist(memID);
+    }
 }

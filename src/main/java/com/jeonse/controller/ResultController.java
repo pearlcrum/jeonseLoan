@@ -32,9 +32,8 @@ public class ResultController {
     @GetMapping("/result")
     public String result(@SessionAttribute(name="memID", required = false) String memID, Model model) {
         if(commonchecklistService.checkCommonchecklistID(memID)>=1) {
-            List<CommonchecklistDTO> list = new ArrayList<CommonchecklistDTO>();
-            list = commonchecklistService.getAllCommonChecklist(memID);
-            int wishlistNum = 1;
+
+            int wishlistNum=commonchecklistService.getLatestWishlistNumFromCommonchecklist(memID);
             CommonchecklistDTO commonchecklistDTO = commonchecklistService.getCommonChecklist(wishlistNum);
             IbkansimjeonseDTO ibkansimjeonseDTO = ibkansimjeonseService.getIbkansimjeonseDTO(wishlistNum);
             IbkjeonseDTO ibkjeonseDTO = ibkjeonseService.getIbkjeonseDTO(wishlistNum);

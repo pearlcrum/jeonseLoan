@@ -35,7 +35,7 @@ public class profileController {
     @GetMapping("/profile")
     public String profile(@SessionAttribute(name = "memID", required = false) String memID, Model model) {
 
-        int wishlistID=1;
+        int wishlistID=commonchecklistService.getLatestWishlistNumFromCommonchecklist(memID);
         int cnt=0;
         if(commonchecklistService.checkCommonchecklistID(memID)>=1) {
             CommonchecklistDTO commonchecklistDTO = commonchecklistService.getCommonChecklist(wishlistID);
