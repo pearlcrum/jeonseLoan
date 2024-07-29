@@ -33,10 +33,11 @@ public class ResultController {
 
     @GetMapping(value={"/result","/result/{wishlistnum}"})
     public String result(@SessionAttribute(name="memID", required = false) String memID,
-                         @RequestParam(value="wishlistnum", defaultValue="") String wishlistnum, Model model) {
+                         @PathVariable(required = false, value="wishlistnum") String wishlistnum, Model model) {
         if(commonchecklistService.checkCommonchecklistID(memID)>=1) {
             int wishlistNum;
-            if(wishlistnum.isEmpty()){
+            System.out.println("what is the value"+wishlistnum);
+            if(wishlistnum==null){
                 wishlistNum=commonchecklistService.getLatestWishlistNumFromCommonchecklist(memID);
             }else{
                 wishlistNum=Integer.parseInt(wishlistnum);

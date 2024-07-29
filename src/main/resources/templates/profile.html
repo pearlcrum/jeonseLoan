@@ -257,81 +257,35 @@
 
                                 <div class="container">
 
-                                    <form action="/result" method="get"> <!--주소 및 kb 시세 상세보기 form 경로 수정 필요-->
+                                     <!--주소 및 kb 시세 상세보기 form 경로 수정 필요-->
                                         <div class="row">
+                                            <div th:each="entry: ${allCommonChecklist}">
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">주소</label>
-                                                    <label class="form-label" >: <span th:text="${address}" style="width: 100%" ></span></label>
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label">주소</label>
+                                                        <label class="form-label" >: </span></label>
+                                                        <a th:href="'/result/'+${entry.key}" th:text="${entry.value}"></a><br>
+                                                    </div>
                                             </div>
+                                            <!--
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label"></label>
                                                     <label class="form-label">KB시세: <span th:text="${#numbers.formatInteger(housePrice, 3, 'COMMA')}" style="width: 100%" ></span></label>
                                                 </div>
                                             </div>
+                                            -->
+                                            </div>
                                         </div>
 
                                         <!-- 버튼 추가 -->
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary" style="margin-left:400px;">상세보기</button>
-                                        </div>
 
-                                    </form>
+
+
 
                                 </div>
 
-                                <br>
-                                <br>
 
-                                <div class="container">
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="card">
-                                                <div class="card-body h-100 d-flex align-items-center justify-content-center">
-                                                    <div class="card-body text-center" style=" max-width: 100%;">
-                                                        <h3 style="border-bottom: 2px solid #ccc; color: grey; overflow-wrap: break-word;">IBK 안심전세대출</h3>
-
-                                                        <h3 style="overflow-wrap: break-word;"><span th:text="${ibkAnsimJeonseResult}"></span></h3>
-                                                        <h5 th:if="${ibkAnsimJeonseAmount>=1000}" style="overflow-wrap: break-word;">대출 한도: <span th:text="${#numbers.formatInteger(ibkAnsimJeonseAmount, 3, 'COMMA')}">원</span></h5>
-                                                        <h5 th:if="${ibkAnsimJeonseAmount<1000}" style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkAnsimJeonseAmount}">원</span></h5>
-                                                        <h6 style="overflow-wrap: break-word;">
-                                                            <ul th:each="reason: ${ibkAnsimJeonseReason}">
-                                                                <li th:text="${reason}"></li>
-                                                            </ul>
-                                                        </h6>
-                                                        <img th:if="${ibkAnsimJeonseResult == '대출 불가능'}" src="/img/avatars/crysen.png" alt="대출 불가능 이미지">
-                                                        <img th:if="${ibkAnsimJeonseResult == '대출 가능'}" src="/img/avatars/happysen.png" alt="대출 가능 이미지">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="card" style="max-width: 400px;">
-                                                <div class="card-body h-100 d-flex align-items-center justify-content-center">
-                                                    <div class="card-body text-center" style="width: 100%; max-width: 400px;">
-                                                        <h3 style="border-bottom: 2px solid #ccc; color: grey; overflow-wrap: break-word;">IBK 전세대출</h3>
-                                                        <h3 style="overflow-wrap: break-word;"><span th:text="${ibkJeonseResult}"></span></h3>
-                                                        <h5 th:if="${ibkJeonseAmount<1000}" style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkJeonseAmount}">원</span></h5>
-                                                        <h5 th:if="${ibkJeonseAmount>=1000}" style="overflow-wrap: break-word;">대출 한도: <span th:text="${#numbers.formatInteger(ibkJeonseAmount, 3, 'COMMA')}">원</span></h5>
-                                                        <h6 style="overflow-wrap: break-word;">
-                                                            <ul th:each="reason: ${ibkJeonseReason}">
-                                                                <li th:text="${reason}"></li>
-                                                            </ul>
-                                                        </h6>
-                                                        <img th:if="${ibkJeonseResult == '대출 불가능'}" src="/img/avatars/crysen.png" alt="대출 불가능 이미지">
-                                                        <img th:if="${ibkJeonseResult == '대출 가능'}" src="/img/avatars/happysen.png" alt="대출 가능 이미지">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
 
                             </div>
 
