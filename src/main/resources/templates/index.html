@@ -22,6 +22,42 @@
     <style>
         .js-sidebar-toggle {margin-left: 20px; }
         .js-sidebar-toggle {margin-left: 20px; }
+        /* Custom CSS for InfoWindow */
+        .infoWindow-content {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            width: 250px;
+        }
+        .infoWindow-content h2 {
+            font-size: 18px;
+            margin: 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .infoWindow-content p {
+            margin: 5px 0;
+        }
+        .infoWindow-content .contact-info {
+            margin-top: 10px;
+        }
+        .infoWindow-content .contact-info img {
+            width: 16px;
+            vertical-align: middle;
+        }
+        .infoWindow-content .contact-info a {
+            text-decoration: none;
+            color: #000;
+        }
+        .infoWindow-content .edit-btn {
+            display: block;
+            margin: 10px 0;
+            padding: 5px;
+            text-align: center;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            color: #000;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -106,6 +142,7 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
     });
+
     // 아파트 검색 시 지도에 핑띄우기
     function setMaps(position, house) {
         map = new google.maps.Map(document.getElementById("default_map"), {
@@ -116,16 +153,40 @@
         var dealAmount = house.dealAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         var dealYear = house.dealYear.toString().substring(0,4)+'년 ' +  house.dealYear.toString().substring(4)+' 월';
 
+        // 마커 띄우기
+        var customicon = new google.maps.MarkerImage("/img/avatars/map-marker-icon_34392.png", null, null, null, new google.maps.Size(45,45));
+        var marker;
+        marker = new google.maps.Marker({
+
+                    //마커의 위치
+                    position: new google.maps.LatLng(position),
+                    //마커 아이콘
+                    icon: customicon,
+                    //마커를 표시할 지도
+                    map: map
+                });
+        google.maps.event.addListener(marker, 'click', function() {
+            // Construct the URL
+            var url = '/checklist?houseID=' + house.houseID;
+            // Redirect to the URL
+            window.location.href = url;
+        });
+        var contentString = `
+            <div class="infoWindow-content">
+                <h2>${house.houseName}</h2>
+                <p><strong>최근 실거래가 </strong>: ${dealAmount} 만원 </p>
+                <p>( 거래년도 : ${dealYear} )</p>
+                <p><strong>면적 </strong>: ${house.area}m^2</p>
+                <a href='/checklist?houseID=${house.houseID}' class="edit-btn">대출 조회하기</a>
+            </div>
+        `;
+
         // Creates a info window of the marker
         var infoWindow = new google.maps.InfoWindow({
-            content:
-                "<h2>"+house.houseName+"</h2>"
-                + "<p>최근 실거래가 : "+dealAmount+" 만원 ( 거래년도 : "+dealYear+" )</p>"
-                + "<p>면적 : "+house.area+"m^2</p>"
-                + "<a href='/checklist?houseID="+house.houseID+"'>대출 조회하기</a>"
+            content: contentString
         });
 
-        infoWindow.open(map);
+        infoWindow.open(map,marker);
 
 
         // Set the position where you want to display the InfoWindow

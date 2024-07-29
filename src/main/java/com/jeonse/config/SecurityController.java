@@ -34,7 +34,7 @@ public class SecurityController {
             model.addAttribute("user", memberService.getUserInfo(userInfo.getUsername()));
 
         }
-        HttpSession session = httpServletRequest.getSession(true); //세션이 없으면 생성
+        HttpSession session = httpServletRequest.getSession(true);
 
         session.setAttribute("memID", userInfo.getUsername());
         System.out.println("Security Controller " + userInfo.getUsername());
