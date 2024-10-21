@@ -23,12 +23,12 @@
 - **기획 의도**
     - 고객이 내점하지 않고도 지도 검색(Naver map) 을 통해 대략적인 **전세**(**아파트**)대출 가능여부 및 한도 조회 가능하게 함. 
     
+    ![어알 2](https://github.com/user-attachments/assets/505ec46c-ca35-483d-8c66-c4099347d1e9)
+  
     당행 기준으로 취급한 전세대출 상품 內 가능 여부 간단하게 조회 가능
     
     - IBK전세대출 (SGI서울보증)
     - IBK안심전세대출(HUG)
-    
-    ![어알 2](https://github.com/user-attachments/assets/505ec46c-ca35-483d-8c66-c4099347d1e9)
 
 - **문제 탐색(배경)**
     - 고금리, 전세수급지수 증가, 정부의 부동산 매매 규제로 인한 전세대출 수요 증가.
@@ -54,7 +54,7 @@
 
 **웹서비스의 유용성, 편의성 및 시각화의 실용성에 대한 설명**
 
-![어알 3](https://github.com/user-attachments/assets/17f6c3b6-9f36-4419-9861-c8d77dcebf3c)    
+![어알 4](https://github.com/user-attachments/assets/2d669ea6-004b-441a-abcf-1b5cda3cd41b)
 
 - **시세가 존재하는 아파트 전세 신규 대출 가능 여부 안내**
     - **체크리스트** 제공 & **마이데이터 동의** 활용하여 가능여부를 회신 받고자 함.
