@@ -14,8 +14,6 @@
 → 임대차 계약서 작성 前, 전세대출 가/부 여부 제공 및 가능 한도 산출
 
 ![어알 1](https://github.com/user-attachments/assets/105d85bb-8456-4529-8621-090c2e629c10)
-![어알 2](https://github.com/user-attachments/assets/505ec46c-ca35-483d-8c66-c4099347d1e9)
-![어알 3](https://github.com/user-attachments/assets/17f6c3b6-9f36-4419-9861-c8d77dcebf3c)
 
 
 ## **서비스 구성 안내**
@@ -30,6 +28,8 @@
     - IBK전세대출 (SGI서울보증)
     - IBK안심전세대출(HUG)
     
+    ![어알 2](https://github.com/user-attachments/assets/505ec46c-ca35-483d-8c66-c4099347d1e9)
+
 - **문제 탐색(배경)**
     - 고금리, 전세수급지수 증가, 정부의 부동산 매매 규제로 인한 전세대출 수요 증가.
     - 고객이 내점하여 “요즘 전세대출 금리 어느정도 나와요?” 물어보는 경우가 많지만 즉각적인 답변 어려움.
@@ -53,6 +53,8 @@
 ## **2. 서비스 주요 기능 설명**
 
 **웹서비스의 유용성, 편의성 및 시각화의 실용성에 대한 설명**
+
+![어알 3](https://github.com/user-attachments/assets/17f6c3b6-9f36-4419-9861-c8d77dcebf3c)    
 
 - **시세가 존재하는 아파트 전세 신규 대출 가능 여부 안내**
     - **체크리스트** 제공 & **마이데이터 동의** 활용하여 가능여부를 회신 받고자 함.
